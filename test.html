@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Call Button</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .round-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            color: white;
+            background-color: #d9534f;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .round-btn:hover {
+            background-color: #c9302c;
+        }
+    </style>
+</head>
+<body>
+    <h1>Emergency Contact</h1>
+    <button id="emergency-button" class="round-btn">SOS & Buzzer</button>
+    
+    <!-- Buzzer Sound -->
+    <audio id="buzzer-sound" src="buzzer.mp3" loop></audio>
+
+    <script>
+        // Sample numbers (these would ideally come from user input or a database)
+        const userEmergencyNumber = "9059412411"; // Replace with the user's emergency contact number
+        const policeEmergencyNumber = "9030319435"; // Police emergency number
+
+        // Select the emergency button and buzzer sound element
+        const emergencyButton = document.getElementById("emergency-button");
+        const buzzerSound = document.getElementById("buzzer-sound");
+
+        // Add event listener to the button
+        emergencyButton.addEventListener("click", function() {
+            // Play the buzzer sound
+            buzzerSound.play();
+
+            // Call the numbers
+            callNumbers(userEmergencyNumber, policeEmergencyNumber);
+        });
+
+        // Function to call the numbers using the tel: protocol
+        function callNumbers(userEmergencyNumber, policeEmergencyNumber) {
+            // Call the user emergency number
+            window.open(`tel:${userEmergencyNumber}`);
+
+            // Set a timeout to allow the first call to go through before calling the second
+            setTimeout(() => {
+                window.open(`tel:${policeEmergencyNumber}`);
+            }, 1000); // Adjust the delay as needed (1000 ms = 1 second)
+        }
+    </script>
+</body>
+</html>
